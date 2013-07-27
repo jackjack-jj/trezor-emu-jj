@@ -81,9 +81,9 @@ class Layout(object):
         self.need_refresh = True
         self.last_screen = 'show_logo'
 
-    def show_message(self, messages):
+    def show_message(self, messages, question=True):
         # Print message to console
-        self.show_question(messages, '', 'Continue }', '')
+        self.show_question(messages, question, 'Continue }', '')
         self.last_screen = 'show_message'
 
     def show_receiving_address(self, address):
@@ -109,7 +109,10 @@ class Layout(object):
             msg = messages[i]
             self.buffer.draw_string(0, i * font.height + 1, msg, font)
 
-        self._show_status(question, yes_text, no_text)
+	if not isinstance(question, bool):
+	        self._show_status(question, yes_text, no_text)
+	elif question==True:
+	        self._show_status('', yes_text, no_text)
         self.need_refresh = True
         self.last_screen = 'show_question'
 

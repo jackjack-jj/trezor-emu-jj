@@ -13,6 +13,7 @@ def parse_args():
 
     parser.add_argument('-t', '--text', dest='text', default='', help='Message to display.Use pipe as a line delimiter.')
     parser.add_argument('-p', '--pygame', dest='pygame', action='store_true', help='Use pygame for rendering')
+    parser.add_argument('-s', '--noquestion', dest='noquestion', action='store_true', help="Don't print the question bottom line")
     return parser.parse_args()
 
 def main():
@@ -24,7 +25,7 @@ def main():
 
     # Initialize layout driver
     layout = Layout(buff)
-    layout.show_message(args.text.split('|'))
+    layout.show_message(args.text.split('|'), question=not args.noquestion)
     display.refresh()
 
     if args.pygame:
