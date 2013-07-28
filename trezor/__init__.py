@@ -20,9 +20,12 @@ from buttons import Buttons
 from layout import Layout
 from display import Display
 from display_buffer import DisplayBuffer
+#from logo import logo
 
 from wallet import Wallet
 from machine import StateMachine
+
+from datetime import datetime
 
 '''
     TODO:
@@ -126,6 +129,8 @@ def main(args):
 
     # Main cycle
     while True:
+	#d=datetime.now()
+	#layout.show_message([d.strftime("%d %B %Y %H:%M:%S")],question=False)
         # Set True if device does something
         # False = device will sleep for a moment
         is_active = False
@@ -145,7 +150,7 @@ def main(args):
                 # Press the button
                 button = msg.yes_no
             else:
-                resp = machine.process_debug_message(msg)
+                resp = machine.process_message(msg)
                 if resp is not None:
                     print "Sending debuglink", resp.__class__.__name__, resp
                     debug_transport.write(resp)

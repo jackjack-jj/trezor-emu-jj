@@ -10,7 +10,7 @@ pkill -STOP -f '.*getty.*ttyAMA0.*'
 cd `dirname $0`
 
 # run trezor daemon
-python trezor/__init__.py -s -d -dt socket -dp 0.0.0.0:2000
+python trezor/__init__.py -s -d -dt socket -dp 127.0.0.1:2000
 
 # resume getty
 pkill -CONT -f '.*getty.*ttyAMA0.*'

@@ -31,8 +31,11 @@ class AlgoElectrum(object):
         # Electrum has two branches of keys - standard and change addresses
         # n[0] represent index in branch
         # n[1] == 0 is for standard addresses, n[1] == 1 for change addresses
-        if len(n) != 2:
-            raise Exception("n must have exactly two values")
+	try:
+		if len(n) != 2:
+			raise
+	except:
+        	raise Exception("n must have exactly two values")
 
         """Publickey(type,n) = Master_public_key + H(n|S|type)*point  """
         master_public_key = cls.init_master_public_key(secexp)

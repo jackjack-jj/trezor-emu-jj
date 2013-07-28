@@ -14,7 +14,12 @@ def parse_args():
     parser.add_argument('-t', '--text', dest='text', default='', help='Message to display.Use pipe as a line delimiter.')
     parser.add_argument('-p', '--pygame', dest='pygame', action='store_true', help='Use pygame for rendering')
     parser.add_argument('-s', '--noquestion', dest='noquestion', action='store_true', help="Don't print the question bottom line")
+    parser.add_argument('-y', '--yestext', dest='yestext', default='Confirm }', help="Text for 'Confirm'")
+    parser.add_argument('-n', '--notext', dest='notext', default='', help="Text for 'Cancel'")
     return parser.parse_args()
+
+def formatHexChars(txt):
+    return ''.join(map(lambda x:x[1] if x[0]==0 else x[1][:2].decode('hex')+x[1][2:], enumerate(txt.split('\\x'))))
 
 def main():
     args = parse_args()
@@ -25,7 +30,8 @@ def main():
 
     # Initialize layout driver
     layout = Layout(buff)
-    layout.show_message(args.text.split('|'), question=not args.noquestion)
+    texts = map(formatHexChars, [args.yestext, args.notext])
+    layout.show_message(formatHexChars(args.text).split('|'), question=not args.noquestion, options=texts)
     display.refresh()
 
     if args.pygame:

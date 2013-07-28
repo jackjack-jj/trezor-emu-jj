@@ -81,9 +81,16 @@ class Layout(object):
         self.need_refresh = True
         self.last_screen = 'show_logo'
 
-    def show_message(self, messages, question=True):
+    def show_message(self, messages, question=True, options=None):
         # Print message to console
-        self.show_question(messages, question, 'Continue }', '')
+	texts = ['Continue }', '']
+	if options!=None:
+		if not isinstance(options,list) or len(options)!=2:
+			print 'Function show_message must receive a list of 2 options. Using', str(texts)
+		else:
+			texts = map(str, options)
+
+        self.show_question(messages, question, texts[0], texts[1])
         self.last_screen = 'show_message'
 
     def show_receiving_address(self, address):
@@ -119,11 +126,11 @@ class Layout(object):
     def show_question_dummy(self):
         self.show_question(
             # .....................
-            ['Tohle je nejaka',
-             'zprava, kterou chci',
-             'uzivateli zobrazi na',
-             'internim displeji',
-             'internim displeji'],
+            ['This is a text',
+             'for a dummy question',
+             '.....',
+             'blablabla',
+             'blablabla'],
             'Question?', 'Confirm', 'Cancel')
         self.last_screen = 'show_question_dummy'
 
